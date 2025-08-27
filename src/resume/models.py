@@ -146,7 +146,7 @@ class Experience(BaseModel):
         None, max_length=200, description="Brief company overview"
     )
     achievements: list[Achievement] = Field(
-        min_items=2, max_items=8, description="Key achievements in this role"
+        min_items=1, max_items=12, description="Key achievements in this role"
     )
 
     @property

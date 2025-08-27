@@ -204,10 +204,7 @@ class TestBusinessRulesValidation:
             "achievements": [
                 {
                     "description": "Worked on various projects and learned new technologies"
-                },
-                {
-                    "description": "Contributed to team productivity improvements and code quality initiatives"
-                },
+                }
             ],
         }
 
@@ -235,10 +232,7 @@ class TestBusinessRulesValidation:
             "achievements": [
                 {
                     "description": "Providing consulting services for cloud migration projects"
-                },
-                {
-                    "description": "Led infrastructure modernization initiatives for enterprise clients"
-                },
+                }
             ],
         }
 
