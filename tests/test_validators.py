@@ -204,6 +204,9 @@ class TestBusinessRulesValidation:
             "achievements": [
                 {
                     "description": "Worked on various projects and learned new technologies"
+                },
+                {
+                    "description": "Contributed to team productivity improvements and code quality initiatives"
                 }
             ],
         }
@@ -232,6 +235,9 @@ class TestBusinessRulesValidation:
             "achievements": [
                 {
                     "description": "Providing consulting services for cloud migration projects"
+                },
+                {
+                    "description": "Led infrastructure modernization initiatives for enterprise clients"
                 }
             ],
         }
@@ -261,7 +267,7 @@ class TestBusinessRulesValidation:
         assert result.is_valid
         # Should have warning about too few skills
         warning_found = any(
-            "skills" in warning.lower() and "10" in warning
+            "skills" in warning.lower() and "consider adding more for ats optimization" in warning.lower()
             for warning in result.warnings
         )
         assert warning_found
