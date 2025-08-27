@@ -198,7 +198,7 @@ jobs:
       - name: 🧪 Test Package Installation
         run: |
           uv pip install dist/*.whl
-          python -c "import resume; print(f'✅ Package installed successfully: {resume.__version__}')"
+          uv run python -c "import resume; print(f'✅ Package installed successfully: {resume.__version__}')"
 
       - name: 📦 Upload Build Artifacts
         uses: actions/upload-artifact@v4
