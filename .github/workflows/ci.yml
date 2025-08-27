@@ -55,8 +55,7 @@ jobs:
 
       - name: 🔧 Install Dependencies
         run: |
-          uv sync --dev --frozen
-          uv pip install -e .
+          uv sync --all-extras --dev --frozen
 
       - name: ✅ Run Tests with Coverage
         run: |
@@ -109,8 +108,7 @@ jobs:
 
       - name: 🔧 Install Dependencies
         run: |
-          uv sync --dev --frozen
-          uv pip install -e .
+          uv sync --all-extras --dev --frozen
 
       - name: 🎨 Check Code Formatting (Black)
         run: uv run black --check --diff src/ tests/
@@ -156,8 +154,7 @@ jobs:
 
       - name: 🔧 Install Dependencies
         run: |
-          uv sync --dev --frozen
-          uv pip install -e .
+          uv sync --all-extras --dev --frozen
 
       - name: ✅ Validate Resume Data
         run: |
@@ -215,8 +212,7 @@ jobs:
 
       - name: 🔧 Install Dependencies
         run: |
-          uv sync --dev --frozen
-          uv pip install -e .
+          uv sync --all-extras --dev --frozen
 
       - name: 🌐 Create Web Resume (Mock)
         run: |
