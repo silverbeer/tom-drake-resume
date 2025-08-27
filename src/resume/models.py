@@ -10,11 +10,7 @@ from __future__ import annotations
 from datetime import datetime
 from enum import Enum
 
-from pydantic import BaseModel
-from pydantic import EmailStr
-from pydantic import Field
-from pydantic import HttpUrl
-from pydantic import validator
+from pydantic import BaseModel, EmailStr, Field, HttpUrl, validator
 
 
 class Proficiency(str, Enum):

@@ -6,10 +6,11 @@ This module tests the BuilderFactory class and its registration/creation functio
 
 from __future__ import annotations
 
-import pytest
 from unittest.mock import Mock
 
-from src.resume.builders import BuilderFactory, BaseBuilder
+import pytest
+
+from src.resume.builders import BaseBuilder, BuilderFactory
 from src.resume.builders.base import BuilderError
 from src.resume.config import Config
 

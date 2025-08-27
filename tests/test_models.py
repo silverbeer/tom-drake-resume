@@ -7,14 +7,16 @@ from __future__ import annotations
 import pytest
 from pydantic import ValidationError
 
-from src.resume.models import Achievement
-from src.resume.models import Experience
-from src.resume.models import Impact
-from src.resume.models import PersonalInfo
-from src.resume.models import ProfessionalSummary
-from src.resume.models import Proficiency
-from src.resume.models import ResumeData
-from src.resume.models import Skill
+from src.resume.models import (
+    Achievement,
+    Experience,
+    Impact,
+    PersonalInfo,
+    ProfessionalSummary,
+    Proficiency,
+    ResumeData,
+    Skill,
+)
 
 
 class TestPersonalInfo:

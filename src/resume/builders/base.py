@@ -8,12 +8,12 @@ ensuring consistent interfaces and error handling across different output format
 from __future__ import annotations
 
 from abc import ABC, abstractmethod
+from datetime import datetime
 from pathlib import Path
 from typing import Any, Dict, Optional
-from datetime import datetime
 
-from ..models import ResumeData
 from ..config import Config
+from ..models import ResumeData
 
 
 class BuilderError(Exception):

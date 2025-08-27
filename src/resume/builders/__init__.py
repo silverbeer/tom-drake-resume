@@ -8,11 +8,11 @@ output formats including HTML, PDF, JSON, and Markdown.
 
 from __future__ import annotations
 
-from typing import Dict, List, Type, Optional
 import logging
+from typing import Dict, List, Optional, Type
 
-from .base import BaseBuilder, BuilderError, TemplateError, RenderError
 from ..config import Config
+from .base import BaseBuilder, BuilderError, RenderError, TemplateError
 
 # Import builders (will be available after implementation)
 # from .html import HtmlBuilder

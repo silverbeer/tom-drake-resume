@@ -7,9 +7,11 @@ from __future__ import annotations
 import tempfile
 from pathlib import Path
 
-from src.resume.validators.schema import ValidationResult
-from src.resume.validators.schema import validate_resume_data
-from src.resume.validators.schema import validate_resume_file
+from src.resume.validators.schema import (
+    ValidationResult,
+    validate_resume_data,
+    validate_resume_file,
+)
 
 
 class TestValidationResult:

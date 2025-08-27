@@ -7,15 +7,16 @@ shared by all resume builders.
 
 from __future__ import annotations
 
-import pytest
 from pathlib import Path
 from unittest.mock import Mock, patch
+
+import pytest
 
 from src.resume.builders.base import (
     BaseBuilder,
     BuilderError,
-    TemplateError,
     RenderError,
+    TemplateError,
 )
 from src.resume.config import Config
 from src.resume.models import ResumeData
