@@ -54,7 +54,9 @@ jobs:
             uv-${{ runner.os }}-
 
       - name: 🔧 Install Dependencies
-        run: uv sync --dev --frozen
+        run: |
+          uv sync --dev --frozen
+          uv pip install -e .
 
       - name: ✅ Run Tests with Coverage
         run: |
@@ -106,7 +108,9 @@ jobs:
         uses: astral-sh/setup-uv@v5
 
       - name: 🔧 Install Dependencies
-        run: uv sync --dev --frozen
+        run: |
+          uv sync --dev --frozen
+          uv pip install -e .
 
       - name: 🎨 Check Code Formatting (Black)
         run: uv run black --check --diff src/ tests/
@@ -151,7 +155,9 @@ jobs:
         uses: astral-sh/setup-uv@v5
 
       - name: 🔧 Install Dependencies
-        run: uv sync --dev --frozen
+        run: |
+          uv sync --dev --frozen
+          uv pip install -e .
 
       - name: ✅ Validate Resume Data
         run: |
@@ -208,7 +214,9 @@ jobs:
         uses: astral-sh/setup-uv@v5
 
       - name: 🔧 Install Dependencies
-        run: uv sync --dev --frozen
+        run: |
+          uv sync --dev --frozen
+          uv pip install -e .
 
       - name: 🌐 Create Web Resume (Mock)
         run: |
