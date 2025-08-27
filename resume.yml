@@ -12,13 +12,13 @@ personal_info:
     country: "USA"
     remote_friendly: true
   links:
-    linkedin: "https://linkedin.com/in/tom-drake"
-    github: "https://github.com/tom-drake"
+    linkedin: "https://linkedin.com/in/tomdrake-devops"
+    github: "https://github.com/silverbeer"
     website: "https://tom-drake.dev"
     blog: "https://tom-drake.dev/blog"
 
 professional_summary:
-  headline: "Hands-on technology leader with 25+ years of experience progressing from developer to director-level leadership, expert at modernizing infrastructure, driving observability, and embedding DevOps practices"
+  headline: "Cloud & DevOps leader (25+ yrs) modernizing infrastructure, driving observability, and scaling GitOps automation."
   overview: |
     Proven record of managing QA, automation, development, and cloud reliability teams. Expert at modernizing infrastructure, 
     driving observability, and embedding DevOps practices. Strong advocate for AI-driven automation and innovation, leveraging 
