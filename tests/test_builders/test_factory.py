@@ -10,7 +10,8 @@ from unittest.mock import Mock
 
 import pytest
 
-from src.resume.builders import BaseBuilder, BuilderFactory
+from src.resume.builders import BaseBuilder
+from src.resume.builders import BuilderFactory
 from src.resume.builders.base import BuilderError
 from src.resume.config import Config
 

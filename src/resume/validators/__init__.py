@@ -10,7 +10,9 @@ This package provides comprehensive validation capabilities including:
 
 from __future__ import annotations
 
-from .schema import ValidationResult, validate_resume_data, validate_resume_file
+from .schema import ValidationResult
+from .schema import validate_resume_data
+from .schema import validate_resume_file
 
 __all__ = [
     "ValidationResult",

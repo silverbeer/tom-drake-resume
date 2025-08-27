@@ -9,10 +9,16 @@ output formats including HTML, PDF, JSON, and Markdown.
 from __future__ import annotations
 
 import logging
-from typing import Dict, List, Optional, Type
+from typing import Dict
+from typing import List
+from typing import Optional
+from typing import Type
 
 from ..config import Config
-from .base import BaseBuilder, BuilderError, RenderError, TemplateError
+from .base import BaseBuilder
+from .base import BuilderError
+from .base import RenderError
+from .base import TemplateError
 
 # Import builders (will be available after implementation)
 # from .html import HtmlBuilder
@@ -31,7 +37,7 @@ class BuilderFactory:
     """
 
     # Registry of available builders - will be populated as builders are implemented
-    _builders: Dict[str, Type[BaseBuilder]] = {}
+    _builders: dict[str, type[BaseBuilder]] = {}
 
     @classmethod
     def create_builder(
@@ -73,7 +79,7 @@ class BuilderFactory:
             ) from e
 
     @classmethod
-    def get_available_formats(cls) -> List[str]:
+    def get_available_formats(cls) -> list[str]:
         """Get list of available output formats.
 
         Returns:
@@ -95,7 +101,7 @@ class BuilderFactory:
 
     @classmethod
     def register_builder(
-        cls, format_type: str, builder_class: Type[BaseBuilder]
+        cls, format_type: str, builder_class: type[BaseBuilder]
     ) -> None:
         """Register a custom builder.
 
@@ -152,7 +158,7 @@ class BuilderFactory:
         return False
 
     @classmethod
-    def get_builder_info(cls) -> Dict[str, Dict[str, str]]:
+    def get_builder_info(cls) -> dict[str, dict[str, str]]:
         """Get detailed information about all registered builders.
 
         Returns:
@@ -170,7 +176,7 @@ class BuilderFactory:
         return info
 
 
-def get_supported_formats() -> List[str]:
+def get_supported_formats() -> list[str]:
     """Convenience function to get supported formats.
 
     Returns:

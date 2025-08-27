@@ -7,10 +7,11 @@ ensuring consistent interfaces and error handling across different output format
 
 from __future__ import annotations
 
-from abc import ABC, abstractmethod
+from abc import ABC
+from abc import abstractmethod
 from datetime import datetime
 from pathlib import Path
-from typing import Any, Dict, Optional
+from typing import Any
 
 from ..config import Config
 from ..models import ResumeData
@@ -19,7 +20,7 @@ from ..models import ResumeData
 class BuilderError(Exception):
     """Base exception for builder errors."""
 
-    def __init__(self, message: str, format_type: Optional[str] = None) -> None:
+    def __init__(self, message: str, format_type: str | None = None) -> None:
         self.format_type = format_type
         super().__init__(message)
 
@@ -30,8 +31,8 @@ class TemplateError(BuilderError):
     def __init__(
         self,
         message: str,
-        template_path: Optional[Path] = None,
-        format_type: Optional[str] = None,
+        template_path: Path | None = None,
+        format_type: str | None = None,
     ) -> None:
         self.template_path = template_path
         super().__init__(message, format_type)
@@ -43,8 +44,8 @@ class RenderError(BuilderError):
     def __init__(
         self,
         message: str,
-        output_path: Optional[Path] = None,
-        format_type: Optional[str] = None,
+        output_path: Path | None = None,
+        format_type: str | None = None,
     ) -> None:
         self.output_path = output_path
         super().__init__(message, format_type)
@@ -155,7 +156,7 @@ class BaseBuilder(ABC):
 
         return template_path
 
-    def validate_theme_template(self, theme: Optional[str] = None) -> Path:
+    def validate_theme_template(self, theme: str | None = None) -> Path:
         """Validate that a theme template exists and return its path.
 
         Args:
@@ -186,7 +187,7 @@ class BaseBuilder(ABC):
 
         return theme_template_path
 
-    def prepare_context(self, resume_data: ResumeData) -> Dict[str, Any]:
+    def prepare_context(self, resume_data: ResumeData) -> dict[str, Any]:
         """Prepare template context from resume data.
 
         This method converts the Pydantic resume model into a dictionary

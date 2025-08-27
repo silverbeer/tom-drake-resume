@@ -9,7 +9,8 @@ from __future__ import annotations
 
 from pathlib import Path
 
-from pydantic import Field, validator
+from pydantic import Field
+from pydantic import validator
 from pydantic_settings import BaseSettings
 
 
