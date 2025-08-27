@@ -59,18 +59,24 @@ class BaseBuilder(ABC):
     and error management.
     """
 
-    def __init__(self, config: Config, theme: str = "modern") -> None:
-        """Initialize the builder with configuration and theme.
+    def __init__(self, resume_data: ResumeData, output_dir: Path, theme: str = "modern") -> None:
+        """Initialize the builder with resume data and output directory.
 
         Args:
-            config: Application configuration instance
+            resume_data: Validated resume data model
+            output_dir: Directory where output files will be created
             theme: Theme name for template selection
         """
-        self.config = config
+        self.resume_data = resume_data
+        self.output_dir = Path(output_dir)
         self.theme = theme
-        self.template_dir = config.templates_dir
+        
+        # Set up paths
+        from .. import PROJECT_ROOT
+        self.template_dir = PROJECT_ROOT / "templates"
 
-        # Ensure template directory exists
+        # Ensure directories exist
+        self.output_dir.mkdir(parents=True, exist_ok=True)
         if not self.template_dir.exists():
             raise TemplateError(
                 f"Templates directory not found: {self.template_dir}",
@@ -78,12 +84,8 @@ class BaseBuilder(ABC):
             )
 
     @abstractmethod
-    def build(self, resume_data: ResumeData, output_path: Path) -> Path:
+    def build(self) -> Path:
         """Build resume and return output file path.
-
-        Args:
-            resume_data: Validated resume data model
-            output_path: Path where the output file should be created
 
         Returns:
             Path to the generated output file
@@ -187,18 +189,16 @@ class BaseBuilder(ABC):
 
         return theme_template_path
 
-    def prepare_context(self, resume_data: ResumeData) -> dict[str, Any]:
+    def prepare_context(self) -> dict[str, Any]:
         """Prepare template context from resume data.
 
         This method converts the Pydantic resume model into a dictionary
         suitable for template rendering, adding metadata and utility data.
 
-        Args:
-            resume_data: Validated resume data model
-
         Returns:
             Dictionary containing all data needed for template rendering
         """
+        resume_data = self.resume_data
         # Build timestamp for metadata
         build_timestamp = datetime.now()
 
@@ -269,6 +269,17 @@ class BaseBuilder(ABC):
             Complete filename with extension
         """
         return f"{base_name}.{self.get_file_extension()}"
+    
+    def get_output_path(self, base_name: str = "resume") -> Path:
+        """Generate full output file path.
+
+        Args:
+            base_name: Base name for the file
+
+        Returns:
+            Complete path to output file
+        """
+        return self.output_dir / self.get_output_filename(base_name)
 
     def __repr__(self) -> str:
         """String representation of the builder."""

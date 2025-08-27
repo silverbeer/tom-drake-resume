@@ -259,27 +259,10 @@ def all(
             task = progress.add_task(f"Building {fmt.upper()} format...", total=None)
 
             try:
-                # Import builder dynamically
-                if fmt == "html":
-                    from .builders.html import HtmlBuilder
-
-                    builder = HtmlBuilder(result.data, output_dir)
-                elif fmt == "pdf":
-                    from .builders.pdf import PdfBuilder
-
-                    builder = PdfBuilder(result.data, output_dir)
-                elif fmt == "json":
-                    from .builders.json_builder import JsonBuilder
-
-                    builder = JsonBuilder(result.data, output_dir)
-                elif fmt == "markdown":
-                    from .builders.markdown import MarkdownBuilder
-
-                    builder = MarkdownBuilder(result.data, output_dir)
-                else:
-                    console.print(f"❌ Unknown format: {fmt}")
-                    continue
-
+                # Use builder factory to create appropriate builder
+                from .builders import BuilderFactory
+                
+                builder = BuilderFactory.create_builder(fmt, result.data, output_dir)
                 file_path = builder.build()
                 built_files.append((fmt.upper(), file_path))
 

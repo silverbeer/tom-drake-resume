@@ -21,10 +21,11 @@ from .base import RenderError
 from .base import TemplateError
 
 # Import builders (will be available after implementation)
-# from .html import HtmlBuilder
-# from .pdf import PdfBuilder
-# from .json_builder import JsonBuilder
-# from .markdown import MarkdownBuilder
+from .html import HtmlBuilder
+from .json_builder import JsonBuilder
+from .markdown import MarkdownBuilder
+# Import PDF builder (ReportLab-based, pure Python)
+from .pdf import PdfBuilder
 
 logger = logging.getLogger(__name__)
 
@@ -41,13 +42,14 @@ class BuilderFactory:
 
     @classmethod
     def create_builder(
-        cls, format_type: str, config: Config, theme: str = "modern"
+        cls, format_type: str, resume_data, output_dir, theme: str = "modern"
     ) -> BaseBuilder:
         """Create a builder instance for the specified format.
 
         Args:
             format_type: Output format ('html', 'pdf', 'json', 'markdown')
-            config: Application configuration
+            resume_data: Validated resume data model
+            output_dir: Directory where output files will be created
             theme: Theme name for visual styling
 
         Returns:
@@ -71,7 +73,7 @@ class BuilderFactory:
         try:
             builder_class = cls._builders[format_type]
             logger.debug(f"Creating {builder_class.__name__} with theme '{theme}'")
-            return builder_class(config, theme)
+            return builder_class(resume_data, output_dir, theme)
 
         except Exception as e:
             raise BuilderError(
@@ -186,19 +188,20 @@ def get_supported_formats() -> list[str]:
 
 
 def create_builder(
-    format_type: str, config: Config, theme: str = "modern"
+    format_type: str, resume_data, output_dir, theme: str = "modern"
 ) -> BaseBuilder:
     """Convenience function to create a builder.
 
     Args:
         format_type: Output format
-        config: Application configuration
+        resume_data: Validated resume data model
+        output_dir: Directory where output files will be created
         theme: Theme name
 
     Returns:
         Configured builder instance
     """
-    return BuilderFactory.create_builder(format_type, config, theme)
+    return BuilderFactory.create_builder(format_type, resume_data, output_dir, theme)
 
 
 # Auto-registration of builders (uncomment as builders are implemented)
@@ -207,8 +210,32 @@ def create_builder(
 
 def _register_core_builders() -> None:
     """Register core builders if available."""
+    # Register HTML builder directly since it's imported
+    try:
+        BuilderFactory.register_builder('html', HtmlBuilder)
+    except Exception as e:
+        logger.debug(f"Failed to register HTML builder: {e}")
+    
+    # Register JSON builder directly since it's imported
+    try:
+        BuilderFactory.register_builder('json', JsonBuilder)
+    except Exception as e:
+        logger.debug(f"Failed to register JSON builder: {e}")
+    
+    # Register Markdown builder directly since it's imported
+    try:
+        BuilderFactory.register_builder('markdown', MarkdownBuilder)
+    except Exception as e:
+        logger.debug(f"Failed to register Markdown builder: {e}")
+    
+    # Register PDF builder directly since it's imported
+    try:
+        BuilderFactory.register_builder('pdf', PdfBuilder)
+    except Exception as e:
+        logger.debug(f"Failed to register PDF builder: {e}")
+    
+    # Other builders to be registered as they're implemented
     builders_to_register = [
-        # ('html', 'HtmlBuilder', '.html'),
         # ('pdf', 'PdfBuilder', '.pdf'),
         # ('json', 'JsonBuilder', '.json_builder'),
         # ('markdown', 'MarkdownBuilder', '.markdown'),
@@ -234,15 +261,15 @@ __all__ = [
     # Base classes and errors
     "BaseBuilder",
     "BuilderError",
-    "TemplateError",
+    "TemplateError", 
     "RenderError",
     # Factory and utilities
     "BuilderFactory",
     "create_builder",
     "get_supported_formats",
     # Individual builders (will be available after implementation)
-    # "HtmlBuilder",
-    # "PdfBuilder",
-    # "JsonBuilder",
-    # "MarkdownBuilder",
+    "HtmlBuilder",
+    "JsonBuilder", 
+    "MarkdownBuilder",
+    "PdfBuilder",
 ]
