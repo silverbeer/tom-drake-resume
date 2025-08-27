@@ -80,7 +80,9 @@ class PersonalInfo(BaseModel):
     )
     email: EmailStr
     phone: str | None = Field(
-        None, pattern=r"^\+?[1-9][\d\-\.\s()]{7,14}$", description="Phone in international format"
+        None,
+        pattern=r"^\+?[1-9][\d\-\.\s()]{7,14}$",
+        description="Phone in international format",
     )
     location: Location
     links: Links | None = None

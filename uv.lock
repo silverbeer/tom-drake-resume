@@ -1752,6 +1752,7 @@ version = "1.0.0"
 source = { editable = "." }
 dependencies = [
     { name = "anthropic" },
+    { name = "black" },
     { name = "click" },
     { name = "colorlog" },
     { name = "httpx" },
@@ -1825,6 +1826,7 @@ prod = [
 requires-dist = [
     { name = "anthropic", specifier = ">=0.8.1" },
     { name = "bandit", marker = "extra == 'dev'", specifier = ">=1.7.5" },
+    { name = "black", specifier = ">=25.1.0" },
     { name = "black", marker = "extra == 'dev'", specifier = ">=23.12.0" },
     { name = "click", specifier = ">=8.1.7" },
     { name = "colorlog", specifier = ">=6.8.0" },

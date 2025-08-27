@@ -5,11 +5,12 @@ A revolutionary "Resume as Infrastructure" approach that demonstrates modern Dev
 while solving the problem of resume management through automation, AI enhancement, and
 comprehensive quality assurance.
 """
+
 from __future__ import annotations
 
 __version__ = "1.0.0"
 __author__ = "Tom Drake"
-__email__ = "tom.drake@example.com"
+__email__ = "silverbeer.io@gmail.com"
 
 from pathlib import Path
 

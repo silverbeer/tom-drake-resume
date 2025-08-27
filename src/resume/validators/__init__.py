@@ -7,6 +7,7 @@ This package provides comprehensive validation capabilities including:
 - Data quality checks
 - AI enhancement validation
 """
+
 from __future__ import annotations
 
 from .schema import ValidationResult
