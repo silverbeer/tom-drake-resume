@@ -164,7 +164,7 @@ jobs:
 
       - name: ✅ Validate Resume Data
         run: |
-          python - <<'PY'
+          uv run python - <<'PY'
           from pathlib import Path
           from resume.validators.schema import validate_resume_file
       
