@@ -5,7 +5,7 @@ personal_info:
   name: "Tom Drake"
   title: "Director of Cloud Reliability Engineering"
   email: "tdrake13@gmail.com"
-  phone: "+1-508-808-8701"
+  phone: "508-808-8701"
   location:
     city: "North Grafton"
     state: "MA" 

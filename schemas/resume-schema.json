@@ -36,8 +36,8 @@
         },
         "phone": {
           "type": "string",
-          "pattern": "^\\+?[1-9]\\d{1,14}$",
-          "description": "Phone number in international format"
+          "pattern": "^[0-9\\-\\+\\(\\)\\s]{7,20}$",
+          "description": "Phone number in international or local format (digits, spaces, dashes, parentheses, plus sign)"
         },
         "location": {
           "type": "object",
