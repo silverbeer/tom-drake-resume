@@ -25,7 +25,7 @@ class Config(BaseSettings):
     
     # File paths
     resume_file: Path = Field(default="resume.yml", description="Path to resume YAML file")
-    schema_file: Path = Field(default="resume-schema.json", description="Path to JSON schema")
+    schema_file: Path = Field(default="schemas/resume-schema.json", description="Path to JSON schema")
     output_dir: Path = Field(default="dist", description="Output directory for built files")
     templates_dir: Path = Field(default="templates", description="Templates directory")
     web_dir: Path = Field(default="web", description="Web assets directory")

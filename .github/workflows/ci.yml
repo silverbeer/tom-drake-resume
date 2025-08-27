@@ -154,10 +154,11 @@ jobs:
         run: uv sync --dev --frozen
 
       - name: ✅ Validate Resume Data
-        run: uv run python -c "
+        run: |
+          uv run python -c "
           from src.resume.validators.schema import validate_resume_file
           from pathlib import Path
-          result = validate_resume_file(Path('resume.yml'), Path('resume-schema.json'))
+          result = validate_resume_file(Path('resume.yml'), Path('schemas/resume-schema.json'))
           if not result.is_valid:
               print('❌ Resume validation failed:')
               for error in result.errors:
@@ -167,7 +168,7 @@ jobs:
           print(f'📊 Experience entries: {len(result.data.experience)}')
           print(f'🛠️ Skill categories: {len(result.data.skills.categories)}')
           print(f'📚 Projects: {len(result.data.projects or [])}')
-        "
+          "
 
       - name: 🏗️ Build Package
         run: uv build
