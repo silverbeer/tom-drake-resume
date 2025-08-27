@@ -164,20 +164,33 @@ jobs:
 
       - name: ✅ Validate Resume Data
         run: |
-          uv run python -c "
-          from src.resume.validators.schema import validate_resume_file
+          python - <<'PY'
           from pathlib import Path
-          result = validate_resume_file(Path('resume.yml'), Path('schemas/resume-schema.json'))
+          from resume.validators.schema import validate_resume_file
+      
+          repo = Path.cwd()
+          resume_path = repo / "resume.yml"
+          schema_path = repo / "schemas" / "resume-schema.json"
+      
+          if not schema_path.is_file():
+              print(f"❌ Resume validation failed:\n  • Schema file not found: {schema_path}")
+              print("\n📁 Repo root contents:")
+              for p in sorted(repo.iterdir()):
+                  print("  -", p)
+              raise SystemExit(1)
+      
+          result = validate_resume_file(resume_path, schema_path)
           if not result.is_valid:
               print('❌ Resume validation failed:')
               for error in result.errors:
                   print(f'  • {error}')
-              exit(1)
+              raise SystemExit(1)
+      
           print('✅ Resume validation passed!')
           print(f'📊 Experience entries: {len(result.data.experience)}')
           print(f'🛠️ Skill categories: {len(result.data.skills.categories)}')
           print(f'📚 Projects: {len(result.data.projects or [])}')
-          "
+          PY
 
       - name: 🏗️ Build Package
         run: uv build
