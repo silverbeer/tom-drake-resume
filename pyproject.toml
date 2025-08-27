@@ -44,7 +44,7 @@ dependencies = [
     "click >= 8.1.7",
     
     # Data Models & Validation
-    "pydantic >= 2.5.0",
+    "pydantic[email] >= 2.5.0",
     "pydantic-settings >= 2.1.0",
     "jsonschema >= 4.20.0",
     

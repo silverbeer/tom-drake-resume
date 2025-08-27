@@ -73,7 +73,7 @@ class PersonalInfo(BaseModel):
     email: EmailStr
     phone: Optional[str] = Field(
         None, 
-        regex=r"^\+?[1-9]\d{1,14}$", 
+        pattern=r"^\+?[1-9]\d{1,14}$", 
         description="Phone in international format"
     )
     location: Location
@@ -133,10 +133,10 @@ class Experience(BaseModel):
     """Professional work experience."""
     company: str = Field(min_length=2, max_length=100)
     role: str = Field(min_length=5, max_length=100)
-    start_date: str = Field(regex=r"^\d{4}-\d{2}$", description="YYYY-MM format")
+    start_date: str = Field(pattern=r"^\d{4}-\d{2}$", description="YYYY-MM format")
     end_date: Optional[str] = Field(
         None,
-        regex=r"^\d{4}-\d{2}$", 
+        pattern=r"^\d{4}-\d{2}$", 
         description="YYYY-MM format, null for current position"
     )
     location: Optional[str] = Field(None, max_length=100)
@@ -178,7 +178,7 @@ class Skill(BaseModel):
     certifications: Optional[List[str]] = None
     last_used: Optional[str] = Field(
         None,
-        regex=r"^\d{4}$",
+        pattern=r"^\d{4}$",
         description="Year last used professionally"
     )
 
@@ -215,7 +215,7 @@ class Education(BaseModel):
     institution: str = Field(min_length=2, max_length=100)
     degree: str = Field(min_length=5, max_length=100)
     field_of_study: Optional[str] = Field(None, max_length=100)
-    graduation_date: str = Field(regex=r"^\d{4}$", description="Graduation year")
+    graduation_date: str = Field(pattern=r"^\d{4}$", description="Graduation year")
     gpa: Optional[float] = Field(None, ge=0.0, le=4.0)
     honors: Optional[List[str]] = None
     relevant_coursework: Optional[List[str]] = None
@@ -225,10 +225,10 @@ class Certification(BaseModel):
     """Professional certification."""
     name: str = Field(min_length=5, max_length=100)
     issuer: str = Field(min_length=2, max_length=100)
-    date_earned: str = Field(regex=r"^\d{4}-\d{2}$", description="YYYY-MM format")
+    date_earned: str = Field(pattern=r"^\d{4}-\d{2}$", description="YYYY-MM format")
     expiration_date: Optional[str] = Field(
         None,
-        regex=r"^\d{4}-\d{2}$",
+        pattern=r"^\d{4}-\d{2}$",
         description="YYYY-MM format"
     )
     credential_id: Optional[str] = None
@@ -253,8 +253,8 @@ class Project(BaseModel):
     technologies: List[str] = Field(min_items=1, description="Technologies used")
     url: Optional[HttpUrl] = None
     github_url: Optional[HttpUrl] = None
-    start_date: Optional[str] = Field(None, regex=r"^\d{4}-\d{2}$")
-    end_date: Optional[str] = Field(None, regex=r"^\d{4}-\d{2}$")
+    start_date: Optional[str] = Field(None, pattern=r"^\d{4}-\d{2}$")
+    end_date: Optional[str] = Field(None, pattern=r"^\d{4}-\d{2}$")
     status: Optional[ProjectStatus] = None
     highlights: Optional[List[str]] = None
     ai_enhanced: bool = Field(default=False)
@@ -264,7 +264,7 @@ class Award(BaseModel):
     """Professional award or recognition."""
     title: str
     issuer: str
-    date: str = Field(regex=r"^\d{4}-\d{2}$")
+    date: str = Field(pattern=r"^\d{4}-\d{2}$")
     description: Optional[str] = None
 
 
@@ -272,7 +272,7 @@ class Publication(BaseModel):
     """Published work or article."""
     title: str
     publication: str
-    date: str = Field(regex=r"^\d{4}-\d{2}$")
+    date: str = Field(pattern=r"^\d{4}-\d{2}$")
     url: Optional[HttpUrl] = None
     co_authors: Optional[List[str]] = None
 
@@ -315,7 +315,7 @@ class Metadata(BaseModel):
 
 class ResumeData(BaseModel):
     """Complete resume data model."""
-    version: str = Field(regex=r"^\d+\.\d+\.\d+$", description="Semantic version")
+    version: str = Field(pattern=r"^\d+\.\d+\.\d+$", description="Semantic version")
     last_updated: datetime
     personal_info: PersonalInfo
     professional_summary: ProfessionalSummary
