@@ -36,8 +36,8 @@
         },
         "phone": {
           "type": "string",
-          "pattern": "^\\+?[1-9]\\d{1,14}$",
-          "description": "Phone number in international format"
+          "pattern": "^\\+?[1-9][0-9\\s\\-\\.\\(\\)]{6,20}$",
+          "description": "Phone number in international or standard format"
         },
         "location": {
           "type": "object",
@@ -134,8 +134,8 @@
           },
           "achievements": {
             "type": "array",
-            "minItems": 2,
-            "maxItems": 8,
+            "minItems": 1,
+            "maxItems": 12,
             "items": {
               "type": "object",
               "required": ["description"],
