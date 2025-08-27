@@ -6,7 +6,7 @@ from __future__ import annotations
 
 import tempfile
 from pathlib import Path
-from typing import Any, Dict
+from typing import Any
 
 import pytest
 import yaml
@@ -15,7 +15,7 @@ from src.resume.models import ResumeData
 
 
 @pytest.fixture
-def sample_resume_data() -> Dict[str, Any]:
+def sample_resume_data() -> dict[str, Any]:
     """Sample resume data for testing."""
     return {
         "version": "1.0.0",
@@ -29,8 +29,8 @@ def sample_resume_data() -> Dict[str, Any]:
                 "city": "San Francisco",
                 "state": "CA",
                 "country": "USA",
-                "remote_friendly": True
-            }
+                "remote_friendly": True,
+            },
         },
         "professional_summary": {
             "headline": "Experienced DevOps engineer with cloud expertise",
@@ -38,9 +38,9 @@ def sample_resume_data() -> Dict[str, Any]:
             "key_strengths": [
                 "Cloud Architecture",
                 "DevOps Automation",
-                "Team Leadership"
+                "Team Leadership",
             ],
-            "years_experience": 8
+            "years_experience": 8,
         },
         "experience": [
             {
@@ -53,14 +53,14 @@ def sample_resume_data() -> Dict[str, Any]:
                     {
                         "description": "Implemented CI/CD pipeline reducing deployment time by 50%",
                         "impact": "high",
-                        "technologies": ["GitHub Actions", "Docker", "Kubernetes"]
+                        "technologies": ["GitHub Actions", "Docker", "Kubernetes"],
                     },
                     {
                         "description": "Managed cloud infrastructure supporting 1M+ users",
                         "impact": "high",
-                        "technologies": ["AWS", "Terraform", "Prometheus"]
-                    }
-                ]
+                        "technologies": ["AWS", "Terraform", "Prometheus"],
+                    },
+                ],
             }
         ],
         "skills": {
@@ -73,9 +73,9 @@ def sample_resume_data() -> Dict[str, Any]:
                             "name": "AWS",
                             "proficiency": "expert",
                             "years_experience": 5,
-                            "last_used": "2024"
+                            "last_used": "2024",
                         }
-                    ]
+                    ],
                 }
             }
         },
@@ -84,9 +84,9 @@ def sample_resume_data() -> Dict[str, Any]:
                 "institution": "University of California",
                 "degree": "Bachelor of Science",
                 "field_of_study": "Computer Science",
-                "graduation_date": "2015"
+                "graduation_date": "2015",
             }
-        ]
+        ],
     }
 
 
@@ -99,7 +99,7 @@ def sample_resume_model(sample_resume_data) -> ResumeData:
 @pytest.fixture
 def temp_resume_file(sample_resume_data) -> Path:
     """Create a temporary resume YAML file."""
-    with tempfile.NamedTemporaryFile(mode='w', suffix='.yml', delete=False) as f:
+    with tempfile.NamedTemporaryFile(mode="w", suffix=".yml", delete=False) as f:
         yaml.dump(sample_resume_data, f, default_flow_style=False)
         return Path(f.name)
 
@@ -111,7 +111,14 @@ def temp_schema_file() -> Path:
     schema = {
         "$schema": "http://json-schema.org/draft-07/schema#",
         "type": "object",
-        "required": ["version", "personal_info", "professional_summary", "experience", "skills", "education"],
+        "required": [
+            "version",
+            "personal_info",
+            "professional_summary",
+            "experience",
+            "skills",
+            "education",
+        ],
         "properties": {
             "version": {"type": "string"},
             "last_updated": {"type": "string"},
@@ -119,12 +126,13 @@ def temp_schema_file() -> Path:
             "professional_summary": {"type": "object"},
             "experience": {"type": "array"},
             "skills": {"type": "object"},
-            "education": {"type": "array"}
-        }
+            "education": {"type": "array"},
+        },
     }
-    
+
     import json
-    with tempfile.NamedTemporaryFile(mode='w', suffix='.json', delete=False) as f:
+
+    with tempfile.NamedTemporaryFile(mode="w", suffix=".json", delete=False) as f:
         json.dump(schema, f)
         return Path(f.name)
 
@@ -136,11 +144,8 @@ def mock_claude_response():
         "content": [
             {
                 "type": "text",
-                "text": "Enhanced achievement: Implemented CI/CD pipeline using GitHub Actions and Docker, reducing deployment time from 2 hours to 30 minutes (75% improvement) while increasing deployment frequency by 300%"
+                "text": "Enhanced achievement: Implemented CI/CD pipeline using GitHub Actions and Docker, reducing deployment time from 2 hours to 30 minutes (75% improvement) while increasing deployment frequency by 300%",
             }
         ],
-        "usage": {
-            "input_tokens": 100,
-            "output_tokens": 50
-        }
+        "usage": {"input_tokens": 100, "output_tokens": 50},
     }

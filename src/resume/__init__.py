@@ -5,6 +5,7 @@ A revolutionary "Resume as Infrastructure" approach that demonstrates modern Dev
 while solving the problem of resume management through automation, AI enhancement, and
 comprehensive quality assurance.
 """
+from __future__ import annotations
 
 __version__ = "1.0.0"
 __author__ = "Tom Drake"
@@ -19,19 +20,20 @@ TEMPLATES_DIR = PROJECT_ROOT / "templates"
 SCHEMAS_DIR = PROJECT_ROOT / "schemas"
 WEB_DIR = PROJECT_ROOT / "web"
 
-# Export key components
-from .models import ResumeData
 from .config import Config
 
+# Export key components
+from .models import ResumeData
+
 __all__ = [
-    "__version__",
-    "__author__", 
-    "__email__",
     "PACKAGE_ROOT",
-    "PROJECT_ROOT", 
-    "TEMPLATES_DIR",
+    "PROJECT_ROOT",
     "SCHEMAS_DIR",
+    "TEMPLATES_DIR",
     "WEB_DIR",
-    "ResumeData",
     "Config",
+    "ResumeData",
+    "__author__",
+    "__email__",
+    "__version__",
 ]
