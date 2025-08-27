@@ -337,7 +337,7 @@ jobs:
     name: 🚀 Deploy to GitHub Pages
     runs-on: ubuntu-latest
     needs: [test, quality, build, docs]
-    if: github.ref == 'refs/heads/main'
+    if: github.ref == 'refs/heads/main' && false  # Temporarily disabled - enable Pages in repo settings first
     
     environment:
       name: github-pages
