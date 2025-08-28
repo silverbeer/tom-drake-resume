@@ -3,7 +3,7 @@ requires = ["hatchling"]
 build-backend = "hatchling.build"
 
 [project]
-name = "resume-as-code"
+name = "resume"
 version = "1.0.0"
 description = "Resume as Code (RaC) - AI-Powered DevOps Learning Project"
 readme = "README.md"
@@ -109,7 +109,7 @@ prod = [
 
 # All dependencies for CI/CD
 all = [
-    "resume-as-code[dev,prod]"
+    "resume[dev,prod]"
 ]
 
 [project.urls]
