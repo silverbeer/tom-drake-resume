@@ -109,15 +109,15 @@ prod = [
 
 # All dependencies for CI/CD
 all = [
-    "tom-drake-resume[dev,prod]"
+    "resume-as-code[dev,prod]"
 ]
 
 [project.urls]
-Homepage = "https://github.com/tomdrake/tom-drake-resume"
-Documentation = "https://tomdrake.github.io/tom-drake-resume/"
-Repository = "https://github.com/tomdrake/tom-drake-resume.git"
-Issues = "https://github.com/tomdrake/tom-drake-resume/issues"
-Changelog = "https://github.com/tomdrake/tom-drake-resume/blob/main/CHANGELOG.md"
+Homepage = "https://github.com/silverbeer/resume-as-code"
+Documentation = "https://silverbeer.github.io/resume-as-code/"
+Repository = "https://github.com/silverbeer/resume-as-code.git"
+Issues = "https://github.com/silverbeer/resume-as-code/issues"
+Changelog = "https://github.com/silverbeer/resume-as-code/blob/main/CHANGELOG.md"
 
 [project.scripts]
 resume = "resume.cli:app"
