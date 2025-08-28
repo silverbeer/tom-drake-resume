@@ -1,21 +1,21 @@
-# 🚀 Tom Drake's Resume System: DevOps Innovation Showcase
+# 🚀 Resume as Code (RaC): AI-Powered DevOps Learning Project
 
-[![CI/CD Pipeline](https://github.com/tomdrake/tom-drake-resume/actions/workflows/ci.yml/badge.svg)](https://github.com/tomdrake/tom-drake-resume/actions)
-[![Coverage](https://codecov.io/gh/tomdrake/tom-drake-resume/branch/main/graph/badge.svg)](https://codecov.io/gh/tomdrake/tom-drake-resume)
+[![CI/CD Pipeline](https://github.com/silverbeer/resume-as-code/actions/workflows/ci.yml/badge.svg)](https://github.com/silverbeer/resume-as-code/actions)
+[![Coverage](https://codecov.io/gh/silverbeer/resume-as-code/branch/main/graph/badge.svg)](https://codecov.io/gh/silverbeer/resume-as-code)
 [![Python](https://img.shields.io/badge/python-3.12+-blue.svg)](https://python.org)
 [![AI Powered](https://img.shields.io/badge/🤖-AI%20Powered-brightgreen.svg)](./AI_WORKFLOW.md)
 
-## 🤖 AI-Powered Development
+## 🤖 Learning Project: Mastering Claude Code & AI DevOps
 
-This project demonstrates cutting-edge AI integration in DevOps workflows, showcasing how Claude AI enhances every aspect of the development lifecycle - from architecture decisions to content optimization.
+This project was created as a learning journey to master Claude Code and sharpen AI-powered DevOps skills. It demonstrates innovative AI integration in development workflows, showcasing how Claude AI enhances every aspect of the development lifecycle - from architecture decisions to content optimization.
 
-**[View Live Resume](https://tomdrake.github.io/tom-drake-resume/)** | **[See AI Workflow](./AI_WORKFLOW.md)** | **[Claude Instructions](./CLAUDE.md)**
+**[See AI Workflow](./AI_WORKFLOW.md)** | **[Claude Instructions](./CLAUDE.md)**
 
 ---
 
 ## 🎯 Project Overview
 
-Traditional resume management is broken. This project solves that problem with a modern "Resume as Infrastructure" approach that demonstrates DevOps excellence while creating something genuinely useful.
+This learning project explores modern DevOps practices through a practical "Resume as Code (RaC)" approach. Created to master Claude Code capabilities while building something genuinely innovative and useful.
 
 ### The Innovation
 
@@ -54,8 +54,8 @@ Traditional resume management is broken. This project solves that problem with a
 
 ```bash
 # Clone the repository
-git clone https://github.com/tomdrake/tom-drake-resume.git
-cd tom-drake-resume
+git clone https://github.com/silverbeer/resume-as-code.git
+cd resume-as-code
 
 # Install with uv (handles virtual environment automatically)
 uv sync
@@ -187,7 +187,7 @@ uv run resume ai commit-message --files resume.yml
 ## 📁 Project Structure
 
 ```
-tom-drake-resume/
+resume-as-code/
 ├── 🤖 CLAUDE.md              # AI instructions and project context
 ├── 🔄 AI_WORKFLOW.md         # AI-powered development process
 ├── 📄 resume.yml             # YAML source of truth
@@ -275,17 +275,15 @@ This project demonstrates sophisticated AI integration that goes beyond simple c
 
 ---
 
-## 🚀 Live Demo
+## 🚀 Demo Features
 
-**[View My Resume](https://tomdrake.github.io/tom-drake-resume/)**
-
-Features:
-- 🌓 **Dark/Light Mode** with smooth transitions
-- 📱 **Responsive Design** optimized for all devices
-- 🎯 **Interactive Filtering** by skills, experience, or industry
-- ⚡ **Fast Performance** with optimized assets
+The Resume as Code system generates:
+- 🌓 **Professional HTML** with responsive design and dark/light mode
+- 📱 **Multi-Device Support** optimized for all screen sizes
+- 🎯 **Interactive Elements** with skill filtering and navigation
+- ⚡ **Fast Performance** with optimized assets and loading
 - ♿ **Accessibility** compliant (WCAG 2.1 AA)
-- 📊 **Analytics** tracking engagement and effectiveness
+- 📊 **Analytics Ready** for tracking engagement
 
 ---
 
@@ -319,13 +317,13 @@ Features:
 
 ## 🤝 Contributing
 
-This project showcases individual DevOps capabilities, but contributions and feedback are welcome!
+This learning project demonstrates AI-powered DevOps practices. Contributions and feedback are welcome!
 
 ### Development Setup
 ```bash
 # Clone and setup
-git clone https://github.com/tomdrake/tom-drake-resume.git
-cd tom-drake-resume
+git clone https://github.com/silverbeer/resume-as-code.git
+cd resume-as-code
 uv sync
 
 # Install pre-commit hooks
@@ -346,29 +344,31 @@ uv run resume serve --watch
 
 ---
 
-## 🏆 Why This Approach Works
+## 🏆 Learning Outcomes
 
-### For DevOps Leadership Roles
-- **Strategic Thinking**: Demonstrates ability to identify problems and architect solutions
-- **Innovation Mindset**: Shows willingness to experiment with new tools and approaches  
-- **Quality Focus**: Uncompromising approach to testing, documentation, and best practices
-- **AI Strategy**: Forward-thinking integration of AI into development workflows
-- **Results Orientation**: Measurable improvements and clear success metrics
+### AI-Powered Development Skills
+- **Claude Code Mastery**: Hands-on experience with AI-assisted development workflows
+- **Strategic AI Integration**: Learned to leverage AI for architecture, content, and automation
+- **Quality-First AI**: Balancing AI assistance with rigorous testing and validation
+- **Innovation Mindset**: Exploring new approaches to traditional problems
+- **Continuous Learning**: Embracing AI as a tool for skill enhancement
 
-### For Technical Teams
-- **Modern Practices**: Uses contemporary Python tooling and development approaches
-- **Comprehensive Solution**: Addresses the entire problem space, not just coding
-- **Teaching Tool**: Well-documented project that others can learn from
-- **Extensible Design**: Clean architecture that supports future enhancements
+### DevOps Excellence
+- **Modern Python Ecosystem**: Mastery of uv, Typer, Rich, and contemporary practices
+- **Comprehensive Testing**: Achieving high coverage with sophisticated mocking and fixtures
+- **CI/CD Automation**: Building robust pipelines with quality gates and monitoring
+- **Clean Architecture**: Designing maintainable, extensible, and well-documented systems
+- **Problem-Solving**: Identifying real challenges and building practical solutions
 
 ---
 
-## 📞 Contact
+## 📞 About This Project
 
-**Tom Drake** - Director of DevOps Candidate  
-📧 Email: [your-email@example.com](mailto:your-email@example.com)  
-💼 LinkedIn: [linkedin.com/in/tomdrake](https://linkedin.com/in/tomdrake)  
-🐙 GitHub: [github.com/tomdrake](https://github.com/tomdrake)
+**Resume as Code (RaC)** - AI-Powered DevOps Learning Journey  
+🚀 **Purpose**: Mastering Claude Code and sharpening AI DevOps skills  
+🤖 **Innovation**: Exploring AI-first development workflows  
+🏗️ **Learning**: Hands-on experience with modern Python and DevOps practices  
+🎯 **Goal**: Building practical skills through real-world problem solving
 
 ---
 
@@ -379,5 +379,5 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ---
 
 <div align="center">
-<strong>🤖 Powered by AI • 🚀 Built with Python • ⚡ Deployed with DevOps Excellence</strong>
+<strong>🤖 AI-Powered Learning • 🚀 Claude Code Mastery • ⚡ DevOps Innovation</strong>
 </div>

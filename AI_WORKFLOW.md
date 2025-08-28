@@ -1,7 +1,7 @@
 # AI-Powered Development Workflow
 
 ## Overview
-This document outlines how Claude AI is strategically integrated into the development lifecycle of the Tom Drake Resume System, demonstrating advanced AI workflow capabilities that go beyond basic code generation.
+This document outlines how Claude AI is strategically integrated into the development lifecycle of the Resume as Code (RaC) project, demonstrating advanced AI workflow capabilities that go beyond basic code generation.
 
 ## AI Integration Philosophy
 

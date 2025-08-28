@@ -1,7 +1,7 @@
-# Claude AI Instructions for Tom Drake's Resume System
+# Claude AI Instructions for Resume as Code (RaC)
 
 ## Project Vision
-This is an innovative "Resume as Infrastructure" system that demonstrates DevOps expertise through:
+This is an AI-powered learning project exploring "Resume as Code (RaC)" - a modern approach to resume management that demonstrates DevOps expertise through:
 - YAML-based structured resume data (version controlled, AI-friendly)
 - Multi-format automated compilation (PDF, HTML, JSON, Markdown)  
 - GitOps workflow with AI-powered content generation
@@ -30,7 +30,7 @@ This is an innovative "Resume as Infrastructure" system that demonstrates DevOps
 ## Project Structure
 
 ```
-tom-drake-resume/
+resume-as-code/
 ├── CLAUDE.md                   # This file - AI instructions
 ├── AI_WORKFLOW.md             # AI development process documentation  
 ├── README.md                  # Public-facing project overview
@@ -355,4 +355,21 @@ logger = structlog.get_logger()
 - Automated LinkedIn profile synchronization
 - Skills gap analysis with learning recommendations
 
-This system demonstrates that you're not just using AI as a code generator, but as a strategic tool for innovation, automation, and competitive advantage - exactly what forward-thinking organizations need in their DevOps leadership.
+## Learning Project Context
+
+This Resume as Code (RaC) system was created as a comprehensive learning journey to:
+
+### Master Claude Code Capabilities
+- Explore AI-assisted development workflows and best practices
+- Learn to balance AI automation with rigorous quality standards
+- Develop expertise in prompt engineering and AI integration patterns
+- Practice iterative refinement and AI-human collaboration techniques
+
+### Sharpen AI-Powered DevOps Skills
+- Apply modern Python ecosystem tools (uv, Typer, Rich) in real projects
+- Implement comprehensive testing and quality automation (pytest, coverage, CI/CD)
+- Build production-ready systems with proper architecture and documentation  
+- Demonstrate innovation through practical problem-solving
+
+### Innovation & Skill Development
+This system demonstrates strategic AI usage beyond simple code generation - leveraging AI as a tool for architecture decisions, content optimization, quality assurance, and continuous improvement. The goal is building practical AI-powered development expertise for the future of DevOps.
