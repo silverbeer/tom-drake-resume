@@ -6,15 +6,16 @@ ensuring consistent interfaces and error handling across different output format
 """
 
 from __future__ import annotations
-
+from typing import Union
 from abc import ABC
 from abc import abstractmethod
 from datetime import datetime
 from pathlib import Path
 from typing import Any
 
-from ..config import Config
 from ..models import ResumeData
+
+import os
 
 
 class BuilderError(Exception):
@@ -52,31 +53,42 @@ class RenderError(BuilderError):
 
 
 class BaseBuilder(ABC):
-    """Abstract base class for all resume builders.
+    def __init__(
+        self,
+        resume_data_or_config: Union[ResumeData, "BuildConfig"],
+        output_dir: Path | str | None = None,
+        theme: str = "modern",
+    ) -> None:
+        # Normalize resume data
+        if isinstance(resume_data_or_config, ResumeData):
+            self.resume_data = resume_data_or_config
+        else:
+            # assume config-like object has .to_resume_data() or .resume_data
+            if hasattr(resume_data_or_config, "to_resume_data"):
+                self.resume_data = resume_data_or_config.to_resume_data()
+            elif hasattr(resume_data_or_config, "resume_data"):
+                self.resume_data = resume_data_or_config.resume_data
+            else:
+                raise TypeError(
+                    "Expected ResumeData or config with to_resume_data()/resume_data."
+                )
 
-    This class defines the interface that all resume builders must implement,
-    providing common functionality for template handling, context preparation,
-    and error management.
-    """
+        # Resolve output directory: explicit > config > env > default
+        candidate = (
+            output_dir
+            or getattr(resume_data_or_config, "output_dir", None)
+            or os.getenv("BUILD_OUTPUT_DIR")
+            or "dist"
+        )
+        self.output_dir = Path(candidate).resolve()
+        self.output_dir.mkdir(parents=True, exist_ok=True)
 
-    def __init__(self, resume_data: ResumeData, output_dir: Path, theme: str = "modern") -> None:
-        """Initialize the builder with resume data and output directory.
-
-        Args:
-            resume_data: Validated resume data model
-            output_dir: Directory where output files will be created
-            theme: Theme name for template selection
-        """
-        self.resume_data = resume_data
-        self.output_dir = Path(output_dir)
         self.theme = theme
-        
+
         # Set up paths
         from .. import PROJECT_ROOT
-        self.template_dir = PROJECT_ROOT / "templates"
 
-        # Ensure directories exist
-        self.output_dir.mkdir(parents=True, exist_ok=True)
+        self.template_dir = PROJECT_ROOT / "templates"
         if not self.template_dir.exists():
             raise TemplateError(
                 f"Templates directory not found: {self.template_dir}",
@@ -269,7 +281,7 @@ class BaseBuilder(ABC):
             Complete filename with extension
         """
         return f"{base_name}.{self.get_file_extension()}"
-    
+
     def get_output_path(self, base_name: str = "resume") -> Path:
         """Generate full output file path.
 

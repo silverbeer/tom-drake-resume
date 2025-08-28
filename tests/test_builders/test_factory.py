@@ -7,6 +7,8 @@ This module tests the BuilderFactory class and its registration/creation functio
 from __future__ import annotations
 
 from unittest.mock import Mock
+from unittest.mock import patch
+from pathlib import Path
 
 import pytest
 
@@ -18,9 +20,17 @@ from src.resume.config import Config
 
 class MockBuilder(BaseBuilder):
     """Mock builder for testing factory functionality."""
+    
+    def __init__(self, resume_data, output_dir, theme="modern"):
+        # Mock PROJECT_ROOT for testing
+        with patch('src.resume.PROJECT_ROOT', Path("/tmp")):
+            # Create a mock templates directory
+            templates_dir = Path("/tmp/templates")
+            templates_dir.mkdir(exist_ok=True, parents=True)
+            super().__init__(resume_data, output_dir, theme)
 
-    def build(self, resume_data, output_path):
-        return output_path
+    def build(self):
+        return self.get_output_path()
 
     def get_file_extension(self) -> str:
         return "mock"
@@ -34,9 +44,17 @@ class MockBuilder(BaseBuilder):
 
 class AnotherMockBuilder(BaseBuilder):
     """Another mock builder for testing registration."""
+    
+    def __init__(self, resume_data, output_dir, theme="modern"):
+        # Mock PROJECT_ROOT for testing
+        with patch('src.resume.PROJECT_ROOT', Path("/tmp")):
+            # Create a mock templates directory
+            templates_dir = Path("/tmp/templates")
+            templates_dir.mkdir(exist_ok=True, parents=True)
+            super().__init__(resume_data, output_dir, theme)
 
-    def build(self, resume_data, output_path):
-        return output_path
+    def build(self):
+        return self.get_output_path()
 
     def get_file_extension(self) -> str:
         return "another"
@@ -147,72 +165,72 @@ class TestBuilderFactory:
         assert BuilderFactory.is_format_supported("nonexistent") is False
         assert BuilderFactory.is_format_supported("") is False
 
-    def test_create_builder_success(self, sample_config):
+    def test_create_builder_success(self, sample_resume_model, tmp_path):
         """Test successful builder creation."""
         BuilderFactory.register_builder("mock", MockBuilder)
 
-        builder = BuilderFactory.create_builder("mock", sample_config, theme="test")
+        builder = BuilderFactory.create_builder("mock", sample_resume_model, tmp_path / "output", theme="test")
 
         assert isinstance(builder, MockBuilder)
-        assert builder.config == sample_config
+        assert builder.resume_data == sample_resume_model
         assert builder.theme == "test"
 
-    def test_create_builder_default_theme(self, sample_config):
+    def test_create_builder_default_theme(self, sample_resume_model, tmp_path):
         """Test builder creation with default theme."""
         BuilderFactory.register_builder("mock", MockBuilder)
 
-        builder = BuilderFactory.create_builder("mock", sample_config)
+        builder = BuilderFactory.create_builder("mock", sample_resume_model, tmp_path / "output")
 
         assert builder.theme == "modern"  # Default theme
 
-    def test_create_builder_case_insensitive(self, sample_config):
+    def test_create_builder_case_insensitive(self, sample_resume_model, tmp_path):
         """Test builder creation is case insensitive."""
         BuilderFactory.register_builder("mock", MockBuilder)
 
-        builder = BuilderFactory.create_builder("MOCK", sample_config)
+        builder = BuilderFactory.create_builder("MOCK", sample_resume_model, tmp_path / "output")
 
         assert isinstance(builder, MockBuilder)
 
-    def test_create_builder_whitespace_stripped(self, sample_config):
+    def test_create_builder_whitespace_stripped(self, sample_resume_model, tmp_path):
         """Test builder creation strips whitespace."""
         BuilderFactory.register_builder("mock", MockBuilder)
 
-        builder = BuilderFactory.create_builder("  mock  ", sample_config)
+        builder = BuilderFactory.create_builder("  mock  ", sample_resume_model, tmp_path / "output")
 
         assert isinstance(builder, MockBuilder)
 
-    def test_create_builder_empty_format(self, sample_config):
+    def test_create_builder_empty_format(self, sample_resume_model, tmp_path):
         """Test builder creation with empty format type."""
         with pytest.raises(ValueError, match="Format type cannot be empty"):
-            BuilderFactory.create_builder("", sample_config)
+            BuilderFactory.create_builder("", sample_resume_model, tmp_path / "output")
 
-    def test_create_builder_unknown_format(self, sample_config):
+    def test_create_builder_unknown_format(self, sample_resume_model, tmp_path):
         """Test builder creation with unknown format."""
         with pytest.raises(ValueError, match="Unknown format 'unknown'"):
-            BuilderFactory.create_builder("unknown", sample_config)
+            BuilderFactory.create_builder("unknown", sample_resume_model, tmp_path / "output")
 
-    def test_create_builder_unknown_format_with_available(self, sample_config):
+    def test_create_builder_unknown_format_with_available(self, sample_resume_model, tmp_path):
         """Test error message includes available formats."""
         BuilderFactory.register_builder("html", MockBuilder)
         BuilderFactory.register_builder("pdf", AnotherMockBuilder)
 
         with pytest.raises(ValueError, match="Available formats: html, pdf"):
-            BuilderFactory.create_builder("unknown", sample_config)
+            BuilderFactory.create_builder("unknown", sample_resume_model, tmp_path / "output")
 
-    def test_create_builder_no_formats_available(self, sample_config):
+    def test_create_builder_no_formats_available(self, sample_resume_model, tmp_path):
         """Test error message when no formats are available."""
         with pytest.raises(ValueError, match="Available formats: none registered"):
-            BuilderFactory.create_builder("unknown", sample_config)
+            BuilderFactory.create_builder("unknown", sample_resume_model, tmp_path / "output")
 
-    def test_create_builder_construction_failure(self, sample_config):
+    def test_create_builder_construction_failure(self, sample_resume_model, tmp_path):
         """Test handling of builder construction failure."""
 
         class FailingBuilder(BaseBuilder):
-            def __init__(self, config, theme="modern"):
+            def __init__(self, resume_data, output_dir, theme="modern"):
                 raise RuntimeError("Construction failed")
 
-            def build(self, resume_data, output_path):
-                return output_path
+            def build(self):
+                return self.get_output_path()
 
             def get_file_extension(self) -> str:
                 return "fail"
@@ -226,7 +244,7 @@ class TestBuilderFactory:
         BuilderFactory.register_builder("failing", FailingBuilder)
 
         with pytest.raises(BuilderError, match="Failed to create failing builder"):
-            BuilderFactory.create_builder("failing", sample_config)
+            BuilderFactory.create_builder("failing", sample_resume_model, tmp_path / "output")
 
     def test_get_builder_info_empty(self):
         """Test getting builder info when no builders registered."""
@@ -250,13 +268,3 @@ class TestBuilderFactory:
         assert "description" in mock_info
 
 
-# Test fixtures
-@pytest.fixture
-def sample_config(tmp_path):
-    """Create a sample configuration for testing."""
-    templates_dir = tmp_path / "templates"
-    templates_dir.mkdir()
-
-    config = Mock(spec=Config)
-    config.templates_dir = templates_dir
-    return config
