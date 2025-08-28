@@ -6,15 +6,16 @@ ensuring consistent interfaces and error handling across different output format
 """
 
 from __future__ import annotations
-
+from typing import Union
 from abc import ABC
 from abc import abstractmethod
 from datetime import datetime
 from pathlib import Path
 from typing import Any
 
-from ..config import Config
 from ..models import ResumeData
+
+import os
 
 
 class BuilderError(Exception):
@@ -52,25 +53,42 @@ class RenderError(BuilderError):
 
 
 class BaseBuilder(ABC):
-    """Abstract base class for all resume builders.
+    def __init__(
+        self,
+        resume_data_or_config: Union[ResumeData, "BuildConfig"],
+        output_dir: Path | str | None = None,
+        theme: str = "modern",
+    ) -> None:
+        # Normalize resume data
+        if isinstance(resume_data_or_config, ResumeData):
+            self.resume_data = resume_data_or_config
+        else:
+            # assume config-like object has .to_resume_data() or .resume_data
+            if hasattr(resume_data_or_config, "to_resume_data"):
+                self.resume_data = resume_data_or_config.to_resume_data()
+            elif hasattr(resume_data_or_config, "resume_data"):
+                self.resume_data = resume_data_or_config.resume_data
+            else:
+                raise TypeError(
+                    "Expected ResumeData or config with to_resume_data()/resume_data."
+                )
 
-    This class defines the interface that all resume builders must implement,
-    providing common functionality for template handling, context preparation,
-    and error management.
-    """
+        # Resolve output directory: explicit > config > env > default
+        candidate = (
+            output_dir
+            or getattr(resume_data_or_config, "output_dir", None)
+            or os.getenv("BUILD_OUTPUT_DIR")
+            or "dist"
+        )
+        self.output_dir = Path(candidate).resolve()
+        self.output_dir.mkdir(parents=True, exist_ok=True)
 
-    def __init__(self, config: Config, theme: str = "modern") -> None:
-        """Initialize the builder with configuration and theme.
-
-        Args:
-            config: Application configuration instance
-            theme: Theme name for template selection
-        """
-        self.config = config
         self.theme = theme
-        self.template_dir = config.templates_dir
 
-        # Ensure template directory exists
+        # Set up paths
+        from .. import PROJECT_ROOT
+
+        self.template_dir = PROJECT_ROOT / "templates"
         if not self.template_dir.exists():
             raise TemplateError(
                 f"Templates directory not found: {self.template_dir}",
@@ -78,12 +96,8 @@ class BaseBuilder(ABC):
             )
 
     @abstractmethod
-    def build(self, resume_data: ResumeData, output_path: Path) -> Path:
+    def build(self) -> Path:
         """Build resume and return output file path.
-
-        Args:
-            resume_data: Validated resume data model
-            output_path: Path where the output file should be created
 
         Returns:
             Path to the generated output file
@@ -187,18 +201,16 @@ class BaseBuilder(ABC):
 
         return theme_template_path
 
-    def prepare_context(self, resume_data: ResumeData) -> dict[str, Any]:
+    def prepare_context(self) -> dict[str, Any]:
         """Prepare template context from resume data.
 
         This method converts the Pydantic resume model into a dictionary
         suitable for template rendering, adding metadata and utility data.
 
-        Args:
-            resume_data: Validated resume data model
-
         Returns:
             Dictionary containing all data needed for template rendering
         """
+        resume_data = self.resume_data
         # Build timestamp for metadata
         build_timestamp = datetime.now()
 
@@ -269,6 +281,17 @@ class BaseBuilder(ABC):
             Complete filename with extension
         """
         return f"{base_name}.{self.get_file_extension()}"
+
+    def get_output_path(self, base_name: str = "resume") -> Path:
+        """Generate full output file path.
+
+        Args:
+            base_name: Base name for the file
+
+        Returns:
+            Complete path to output file
+        """
+        return self.output_dir / self.get_output_filename(base_name)
 
     def __repr__(self) -> str:
         """String representation of the builder."""
