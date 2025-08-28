@@ -3,14 +3,14 @@ requires = ["hatchling"]
 build-backend = "hatchling.build"
 
 [project]
-name = "tom-drake-resume"
+name = "resume-as-code"
 version = "1.0.0"
-description = "AI-Powered DevOps Resume System - Resume as Infrastructure"
+description = "Resume as Code (RaC) - AI-Powered DevOps Learning Project"
 readme = "README.md"
 license = "MIT"
 requires-python = ">=3.12"
 authors = [
-    { name = "Tom Drake", email = "tom.drake@example.com" },
+    { name = "Learning Project", email = "learning@resume-as-code.dev" },
 ]
 keywords = [
     "resume",
@@ -19,7 +19,8 @@ keywords = [
     "claude",
     "automation",
     "ci-cd",
-    "infrastructure-as-code",
+    "resume-as-code",
+    "learning-project",
 ]
 classifiers = [
     "Development Status :: 4 - Beta",
